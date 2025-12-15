@@ -4,23 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Cybersecurity portfolio showcasing offensive and defensive security expertise">
-    <meta name="keywords" content="Cybersecurity, SOC, Offensive Security, Defensive Security, BCA, Internship">
+    <meta name="keywords" content="Cybersecurity, SOC, Offensive Security, Defensive Security, BCA, Full Stack, Internship">
     <meta name="author" content="Your Name">
     
-    <title>Your Name | Cybersecurity Specialist Portfolio</title>
+    <title>Your Name | Cybersecurity & Full Stack Portfolio</title>
     
-    <!-- Favicon (add your own favicon.ico to root folder) -->
+    <!-- Favicon Security Headers -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="theme-color" content="#0f172a">
     
-    <!-- Preconnect to external domains for performance -->
+    <!-- CSS with Integrity Hash (When you have the file) -->
+    <link rel="stylesheet" href="style.css" integrity="sha384-{YOUR_HASH_HERE}" crossorigin="anonymous">
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Security-focused CSP meta tag (optional but recommended) -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">
 </head>
 
 <body>
@@ -58,6 +64,9 @@
                         <strong>Defensive Security</strong> – SOC Operations & Threat Detection
                     </li>
                     <li class="focus-item">
+                        <strong>Full Stack Development</strong> – MERN Stack & Secure Coding Practices
+                    </li>
+                    <li class="focus-item">
                         <strong>Infrastructure</strong> – Networking & Cloud Security Fundamentals
                     </li>
                 </ul>
@@ -69,7 +78,7 @@
                 <h2 id="projects-heading">Flagship Projects</h2>
                 <div class="coming-soon">
                     <p>Projects portfolio currently being updated. Check back soon!</p>
-                    <p class="small-note">(New projects will be added this week)</p>
+                    <p class="small-note">(New cybersecurity and full-stack projects will be added this week)</p>
                 </div>
             </div>
         </section>
@@ -80,6 +89,7 @@
                 <ul class="cert-list">
                     <li class="cert-item">CEH Master (Certified Ethical Hacker)</li>
                     <li class="cert-item">Advanced Diploma in Cyber Defense</li>
+                    <li class="cert-item">Full Stack Development Certification</li>
                 </ul>
             </div>
         </section>
@@ -92,7 +102,8 @@
                         <span class="contact-label">GitHub:</span>
                         <a href="https://github.com/YOURUSERNAME" 
                            target="_blank" 
-                           rel="noopener noreferrer"
+                           rel="noopener noreferrer nofollow"
+                           aria-label="Visit my GitHub profile (opens in new tab)"
                            class="contact-link">
                             github.com/YOURUSERNAME
                         </a>
@@ -103,7 +114,9 @@
                     </div>
                     <div class="contact-item">
                         <span class="contact-label">Email:</span>
-                        <a href="mailto:your.email@example.com" class="contact-link">
+                        <a href="mailto:your.email@example.com" 
+                           class="contact-link"
+                           aria-label="Send me an email">
                             your.email@example.com
                         </a>
                     </div>
@@ -118,20 +131,81 @@
                 &copy; <span id="current-year">2024</span> Your Name. All rights reserved.
             </p>
             <p class="footer-note">
+                <span id="security-status" class="security-badge">🔒 Secure Connection</span> | 
                 Last updated: <time datetime="2024-01-01">January 2024</time>
             </p>
         </div>
     </footer>
 
-    <!-- JavaScript for dynamic year (optional) -->
+    <!-- Security-focused JavaScript -->
     <script>
         // Set current year in copyright
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
-        // Security: Prevent opening links in iframes (clickjacking protection)
+        // Frame busting for clickjacking protection
         if (self !== top) {
             top.location = self.location;
         }
+        
+        // Content Security Policy compliance check
+        if (window.trustedTypes && window.trustedTypes.createPolicy) {
+            window.trustedTypes.createPolicy('default', {
+                createHTML: string => string.replace(/[^\w\s-.,!?]/g, ''),
+                createScriptURL: string => string,
+                createScript: string => string
+            });
+        }
+        
+        // Security status indicator
+        const securityStatus = document.getElementById('security-status');
+        if (window.location.protocol === 'https:') {
+            securityStatus.innerHTML = '🔒 Secure HTTPS Connection';
+            securityStatus.classList.add('secure');
+        } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            securityStatus.innerHTML = '⚡ Local Development';
+            securityStatus.classList.add('local');
+        } else {
+            securityStatus.innerHTML = '⚠️ Use HTTPS for Security';
+            securityStatus.classList.add('insecure');
+        }
+        
+        // Clean exit for external links
+        document.addEventListener('DOMContentLoaded', function() {
+            const externalLinks = document.querySelectorAll('a[href^="http"]:not([href*="' + window.location.host + '"])');
+            externalLinks.forEach(link => {
+                if (!link.hasAttribute('rel')) {
+                    link.setAttribute('rel', 'noopener noreferrer nofollow');
+                }
+                link.setAttribute('target', '_blank');
+            });
+        });
+        
+        // Error handling
+        window.addEventListener('error', function(e) {
+            console.error('Application error:', e.error);
+            return false;
+        });
+        
+        // Prevent console access in production (optional)
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            console.log = function() {};
+            console.info = function() {};
+            console.warn = function() {};
+            console.error = function() {};
+        }
     </script>
+    
+    <!-- Security fallback -->
+    <noscript>
+        <style>
+            .site-header, .section, .site-footer {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        </style>
+        <div class="security-warning">
+            <strong>Security Notice:</strong> JavaScript is disabled. Some security features may not be active.
+        </div>
+    </noscript>
 </body>
 </html>
